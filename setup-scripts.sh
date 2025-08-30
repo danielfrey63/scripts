@@ -109,7 +109,7 @@ status() {
     fi
     
     echo -e "\n${BLUE}Available scripts:${NC}"
-    find "$SCRIPT_DIR" -name "*.sh" -type f -executable | sort | while read script; do
+    find "$SCRIPT_DIR" -name "*.sh" -type f -perm -u+x | sort | while read script; do
         script_name=$(basename "$script" .sh)
         echo -e "  ${GREEN}• $script_name${NC}"
     done
