@@ -31,6 +31,22 @@ source ~/.zshrc   # für Zsh
 ## 📋 Verfügbare Scripts
 
 ### `show-users.sh`
+
+### `add-script.sh`
+Fügt ein neues Script zum Repository hinzu und pushed es automatisch.
+
+**Features:**
+- Kopiert Scripts ins Repository
+- Macht sie ausführbar
+- Erstellt automatisch Commit-Messages
+- Pushed direkt zu GitHub
+
+**Verwendung:**
+```bash
+./add-script.sh my-script.sh "Beschreibung des Scripts"
+./add-script.sh /path/to/script.sh
+add-script my-script.sh  # nach Installation
+```
 Zeigt alle "normalen" Benutzer des Systems mit ihrem Login-Status an.
 
 **Features:**
