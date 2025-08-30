@@ -10,12 +10,12 @@ Nach dem Klonen des Repositories kannst du die Scripts automatisch zu deiner PAT
 ```bash
 git clone git@github.com:danielfrey63/scripts.git
 cd scripts
-./setup.sh
+./setup-scripts.sh
 ```
 
 ### Manuelle Installation
 ```bash
-./setup.sh install
+./setup-scripts.sh install
 ```
 
 ### Nach der Installation
@@ -30,23 +30,24 @@ source ~/.zshrc   # für Zsh
 
 ## 📋 Verfügbare Scripts
 
-### `show-users.sh`
+### `setup-scripts.sh`
+Das Haupt-Management-Script für das Repository.
 
-### `add-script.sh`
-Fügt ein neues Script zum Repository hinzu und pushed es automatisch.
-
-**Features:**
-- Kopiert Scripts ins Repository
-- Macht sie ausführbar
-- Erstellt automatisch Commit-Messages
-- Pushed direkt zu GitHub
+**Funktionen:**
+- **install**: Scripts zu PATH hinzufügen
+- **uninstall**: Scripts aus PATH entfernen  
+- **status**: Aktuellen Status anzeigen
+- **add**: Neue Scripts hinzufügen und zu GitHub pushen
 
 **Verwendung:**
 ```bash
-./add-script.sh my-script.sh "Beschreibung des Scripts"
-./add-script.sh /path/to/script.sh
-add-script my-script.sh  # nach Installation
+./setup-scripts.sh install              # Installation
+./setup-scripts.sh status               # Status prüfen
+./setup-scripts.sh add script.sh "msg"  # Script hinzufügen
+./setup-scripts.sh uninstall            # Deinstallation
 ```
+
+### `show-users.sh`
 Zeigt alle "normalen" Benutzer des Systems mit ihrem Login-Status an.
 
 **Features:**
@@ -63,16 +64,17 @@ show-users
 ```
 
 ### Weitere Scripts
-*Weitere Scripts werden hier dokumentiert, sobald sie hinzugefügt werden.*
+*Weitere Scripts werden hier automatisch dokumentiert, sobald sie hinzugefügt werden.*
 
-## 🛠️ Setup Script Funktionen
+## 🛠️ Script Management
 
-Das `setup.sh` Script bietet verschiedene Optionen:
+Das `setup-scripts.sh` Script bietet alle notwendigen Funktionen:
 
 ```bash
-./setup.sh install    # Scripts zu PATH hinzufügen
-./setup.sh uninstall  # Scripts aus PATH entfernen  
-./setup.sh status     # Aktuellen Status anzeigen
+./setup-scripts.sh install           # Scripts zu PATH hinzufügen
+./setup-scripts.sh uninstall         # Scripts aus PATH entfernen  
+./setup-scripts.sh status            # Aktuellen Status anzeigen
+./setup-scripts.sh add <file> [msg]  # Neues Script hinzufügen
 ```
 
 ### Was das Setup Script macht:
@@ -82,11 +84,25 @@ Das `setup.sh` Script bietet verschiedene Optionen:
 - ✅ Macht alle `.sh` Dateien ausführbar
 - ✅ Fügt das Scripts-Verzeichnis zu PATH hinzu
 - ✅ Unterstützt Installation und Deinstallation
+- ✅ Git-Integration für Script-Management
+
+### Script hinzufügen:
+```bash
+# Lokales Script hinzufügen
+./setup-scripts.sh add my-script.sh "Beschreibung des Scripts"
+
+# Script von anderem Ort hinzufügen
+./setup-scripts.sh add /path/to/script.sh
+
+# Interaktive Eingabe der Commit-Message
+./setup-scripts.sh add script.sh
+```
 
 ### Sicherheit:
 - 📦 **Backups**: Automatische Backups der Shell-Konfiguration
 - 🔍 **Erkennung**: Prüft, ob bereits installiert
 - 🗑️ **Saubere Deinstallation**: Vollständiges Entfernen möglich
+- 🔒 **Git-Integration**: Versionskontrolle für alle Scripts
 
 ## 🔧 Manuelle PATH Konfiguration
 
@@ -105,10 +121,10 @@ export PATH="/pfad/zum/scripts:$PATH"
 ## 📝 Entwicklung
 
 ### Neues Script hinzufügen:
-1. Script in das Repository-Verzeichnis legen
-2. Ausführbar machen: `chmod +x script.sh`
-3. In README dokumentieren
-4. Committen und pushen
+```bash
+# Am einfachsten mit dem Management-Script
+./setup-scripts.sh add my-new-script.sh "Fügt neue Funktionalität hinzu"
+```
 
 ### Script-Konventionen:
 - Dateiname: `script-name.sh`
@@ -120,9 +136,8 @@ export PATH="/pfad/zum/scripts:$PATH"
 
 1. Repository forken
 2. Feature Branch erstellen (`git checkout -b feature/amazing-script`)
-3. Änderungen committen (`git commit -am 'Add amazing script'`)
-4. Branch pushen (`git push origin feature/amazing-script`)
-5. Pull Request erstellen
+3. Script mit `./setup-scripts.sh add` hinzufügen
+4. Pull Request erstellen
 
 ## 📄 Lizenz
 
@@ -132,12 +147,21 @@ Dieses Projekt steht unter der MIT Lizenz - siehe [LICENSE](LICENSE) Datei für 
 
 Bei Problemen mit der Installation:
 
-1. **Status prüfen**: `./setup.sh status`
-2. **Neuinstallation**: `./setup.sh uninstall && ./setup.sh install`
+1. **Status prüfen**: `./setup-scripts.sh status`
+2. **Neuinstallation**: `./setup-scripts.sh uninstall && ./setup-scripts.sh install`
 3. **Manuelle Prüfung**: `echo $PATH | grep scripts`
 4. **Shell neustarten**: Neues Terminal öffnen
 
 **Häufige Probleme:**
 - Script nicht gefunden → Shell-Konfiguration neu laden
 - Berechtigung verweigert → `chmod +x script.sh`
-- PATH nicht gesetzt → `./setup.sh status` prüfen
+- PATH nicht gesetzt → `./setup-scripts.sh status` prüfen
+
+## 🚀 Features
+
+- **🔧 Einfache Installation**: Ein Befehl für alles
+- **📦 Script-Management**: Hinzufügen, Entfernen, Status
+- **🔄 Git-Integration**: Automatisches Committen und Pushen
+- **🛡️ Sicherheit**: Backups und Validierung
+- **🎨 Benutzerfreundlich**: Farbige Ausgaben und klare Meldungen
+- **🔀 Multi-Shell**: Unterstützt bash, zsh und andere Shells
